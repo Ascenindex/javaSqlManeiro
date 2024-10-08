@@ -1,0 +1,49 @@
+Passo a Passo para Configurar Conexão com o Banco de Dados em Java
+
+1. Importar as bibliotecas necessárias:
+   - Para trabalhar com JDBC (Java Database Connectivity), você precisará importar as seguintes classes:
+     import java.sql.Connection;
+     import java.sql.DriverManager;
+     import java.sql.PreparedStatement;
+     import java.sql.ResultSet;
+     import java.sql.SQLException;
+     import java.sql.Statement;
+
+2. Definir URL, USER e PASSWORD:
+   - Você deve definir constantes para a URL do banco de dados, o nome de usuário e a senha. Esses valores são usados para estabelecer a conexão.
+     private static final String URL = "jdbc:mysql://localhost:3306/UsuariosBD"; // URL do banco
+     private static final String USER = "root"; // Usuário do MySQL
+     private static final String PASSWORD = "neorothos2303"; // Senha do MySQL
+
+3. Definir a variável de conexão como null:
+   - Antes de tentar estabelecer a conexão, você deve declarar uma variável Connection e inicializá-la como null.
+     Connection connection = null;
+
+4. Estabelecer a conexão usando try-catch:
+   - Utilize um bloco try-catch para tentar estabelecer a conexão com o banco de dados. Isso ajuda a capturar exceções que podem ocorrer, como problemas de autenticação ou URL incorreta.
+     try {
+         // Estabelecendo a conexão
+         connection = DriverManager.getConnection(URL, USER, PASSWORD);
+         System.out.println("Conexão estabelecida com sucesso!");
+     } catch (SQLException e) {
+         System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
+     }
+
+5. Realizar operações no banco de dados:
+   - Após a conexão ser estabelecida com sucesso, você pode chamar métodos para executar operações no banco de dados, como criarUsuario, mostrarUsuarios, etc.
+
+6. Fechar a conexão no bloco finally:
+   - É uma boa prática fechar a conexão ao final do uso. Isso deve ser feito no bloco finally para garantir que a conexão será fechada, mesmo se uma exceção ocorrer.
+     finally {
+         if (connection != null) {
+             try {
+                 connection.close();
+                 System.out.println("Conexão fechada.");
+             } catch (SQLException e) {
+                 System.err.println("Erro ao fechar a conexão: " + e.getMessage());
+             }
+         }
+     }
+
+Resumo do Código:
+Seguindo esses passos, você terá um código organizado e estruturado para se conectar ao banco de dados MySQL, realizar operações e garantir que a conexão seja fechada corretamente.
